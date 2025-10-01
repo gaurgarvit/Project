@@ -20,7 +20,7 @@ const PropertyCard = ({ property }) => {
 
         {/* Price + Property Details (Icons) in One Row */}
         <div className="flex items-center justify-between mt-4 text-gray-700">
-          <p className="text-blue-600 font-bold text-lg">${property.price}</p>
+          <p className="text-blue-600 font-bold text-lg">₹{property.price}</p>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <FaBed className="text-black" />

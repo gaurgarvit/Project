@@ -66,7 +66,7 @@ const PropertyDisplay = () => {
         <p className="text-gray-600 flex items-center mt-2">
           <FaMapMarkerAlt className="mr-2 text-red-500" /> {property.location}
         </p>
-        <p className="text-xl font-bold text-green-700 my-2">${property.price.toLocaleString()}</p>
+        <p className="text-xl font-bold text-green-700 my-2">₹{property.price.toLocaleString()}</p>
         <p className="text-gray-700">{property.description}</p>
 
         {/* Property Features */}
@@ -84,6 +84,20 @@ const PropertyDisplay = () => {
             🏠 {property.propertyType}
           </div>
         </div>
+
+        {/* Amenities */}
+        {property.amenities && property.amenities.length > 0 && (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-gray-900">Amenities</h3>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {property.amenities.map((amenity, index) => (
+                <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                  {amenity}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* CTA Buttons */}
         <div className="mt-6 flex gap-4">

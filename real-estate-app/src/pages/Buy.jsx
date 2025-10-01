@@ -12,6 +12,7 @@ const Buy = () => {
     bedrooms: "",
     bathrooms: "",
     location: "",
+    sqft: "",
     propertyType: "",
     amenities: [],
   });
@@ -37,14 +38,24 @@ const Buy = () => {
 
   // Filter properties based on search and filters
   const filteredProperties = properties.filter((property) => {
-    const titleMatch = property.title?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
-    const locationMatch = property.location?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false;
+    // Search term matches title or location (OR condition)
+    const searchMatch = searchTerm
+      ? (property.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         property.location?.toLowerCase().includes(searchTerm.toLowerCase()))
+      : true;
+
+    // Location filter from sidebar
+    const locationFilterMatch = filters.location
+      ? property.location?.toLowerCase().includes(filters.location.toLowerCase())
+      : true;
 
     const minPriceMatch = property.price >= (filters.minPrice || 0);
     const maxPriceMatch = property.price <= (filters.maxPrice || 1000000);
 
     const bedroomsMatch = filters.bedrooms ? property.bedrooms >= Number(filters.bedrooms) : true;
     const bathroomsMatch = filters.bathrooms ? property.bathrooms >= Number(filters.bathrooms) : true;
+
+    const sqftMatch = filters.sqft ? property.sqft >= Number(filters.sqft) : true;
 
     const propertyTypeMatch = filters.propertyType ? property.propertyType === filters.propertyType : true;
 
@@ -53,7 +64,7 @@ const Buy = () => {
         ? filters.amenities.every((amenity) => property.amenities?.includes(amenity))
         : true;
 
-    return titleMatch && locationMatch && minPriceMatch && maxPriceMatch && bedroomsMatch && bathroomsMatch && propertyTypeMatch && amenitiesMatch;
+    return searchMatch && locationFilterMatch && minPriceMatch && maxPriceMatch && bedroomsMatch && bathroomsMatch && sqftMatch && propertyTypeMatch && amenitiesMatch;
   });
 
   return (

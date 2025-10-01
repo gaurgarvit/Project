@@ -18,6 +18,7 @@ const Sell = () => {
     sqft: "",
     images: [],
   });
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -74,6 +75,15 @@ const Sell = () => {
     });
   };
 
+  // Handle amenity toggle
+  const toggleAmenity = (amenity) => {
+    setSelectedAmenities((prev) =>
+      prev.includes(amenity)
+        ? prev.filter((a) => a !== amenity)
+        : [...prev, amenity]
+    );
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,6 +97,7 @@ const Sell = () => {
     formDataToSend.append("bedrooms", formData.bedrooms);
     formDataToSend.append("bathrooms", formData.bathrooms);
     formDataToSend.append("sqft", formData.sqft);
+    formDataToSend.append("amenities", JSON.stringify(selectedAmenities));
 
     formData.images.forEach((image) => {
       formDataToSend.append("images", image.file);
@@ -169,12 +180,38 @@ const Sell = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="text" name="title" placeholder="Property Title" value={formData.title} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
               <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
-              <input type="number" name="price" placeholder="Price ($)" value={formData.price} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
+              <input type="number" name="price" placeholder="Price (₹)" value={formData.price} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
               <div className="grid grid-cols-2 gap-4">
                 <input type="number" name="bedrooms" placeholder="Bedrooms" value={formData.bedrooms} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
                 <input type="number" name="bathrooms" placeholder="Bathrooms" value={formData.bathrooms} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
               </div>
               <input type="number" name="sqft" placeholder="Square Feet" value={formData.sqft} onChange={handleChange} className="w-full p-4 border rounded-lg focus:ring focus:ring-blue-300" required />
+
+              {/* Amenities */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">Amenities</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["Pool", "Gym", "Parking", "Garden", "Balcony"].map((amenity) => (
+                    <label key={amenity} className="flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedAmenities.includes(amenity)}
+                        onChange={() => toggleAmenity(amenity)}
+                        className="hidden"
+                      />
+                      <div
+                        className={`w-4 h-4 border rounded flex items-center justify-center mr-2 ${
+                          selectedAmenities.includes(amenity) ? "bg-blue-500 border-blue-500 text-white" : "border-gray-400 text-gray-400"
+                        }`}
+                      >
+                        {selectedAmenities.includes(amenity) && "✓"}
+                      </div>
+                      {amenity}
+                    </label>
+                  ))}
+                </div>
+              </div>
+
               <button type="submit" className="w-full bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg">
                 List Property
               </button>

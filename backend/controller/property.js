@@ -41,7 +41,7 @@ async function addProperty(req, res) {
     let owner;
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      owner = decoded.userId; // This will now reference the Buyer
+      owner = decoded.buyerId; // This will now reference the Buyer
     } catch (error) {
       return res.status(403).json({ message: "Invalid or expired token!" });
     }
@@ -55,6 +55,7 @@ async function addProperty(req, res) {
       bathrooms: req.body.bathrooms,
       sqft: req.body.sqft,
       propertyType: req.body.propertyType,
+      amenities: req.body.amenities ? JSON.parse(req.body.amenities) : [], // Parse amenities if provided
       images,
       owner, // Associate property with the Buyer
     });

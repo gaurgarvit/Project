@@ -21,6 +21,10 @@ const PropertySchema = new mongoose.Schema(
       required: [true, "Price is required"],
       min: [0, "Price must be a positive number"],
     },
+    currency: {
+      type: String,
+      default: "INR", // Indian Rupees
+    },
     bedrooms: {
       type: Number,
       required: [true, "Number of bedrooms is required"],
@@ -41,6 +45,10 @@ const PropertySchema = new mongoose.Schema(
       enum: ["house", "apartment"],
       required: [true, "Property type is required"],
     },
+    amenities: {
+      type: [String], // Array of amenity names
+      default: [],
+    },
     images: {
       type: [String], // Stores file paths (e.g., "uploads/1707609481234.jpg")
       required: [true, "At least one image is required"],
@@ -53,7 +61,7 @@ const PropertySchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Buyer", // Reference the 'Buyer' model
+      ref: "buyer", // Reference the 'buyer' model
       required: true,
     },
     createdAt: {

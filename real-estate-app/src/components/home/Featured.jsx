@@ -6,7 +6,7 @@ const featuredProperties = [
   {
     id: 1,
     title: "Luxury Villa in LA",
-    price: "$1,250,000",
+    price: "₹1,250,000",
     image: home,
     location: "Los Angeles, CA",
     bedrooms: 4,
@@ -17,7 +17,7 @@ const featuredProperties = [
   {
     id: 2,
     title: "Modern Apartment in NYC",
-    price: "$850,000",
+    price: "₹850,000",
     image: home,
     location: "New York, NY",
     bedrooms: 3,
@@ -27,7 +27,7 @@ const featuredProperties = [
   {
     id: 3,
     title: "Beachfront House in Miami",
-    price: "$2,100,000",
+    price: "₹2,100,000",
     image: home,
     location: "Miami, FL",
     bedrooms: 5,

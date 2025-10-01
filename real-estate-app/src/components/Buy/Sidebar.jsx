@@ -105,10 +105,8 @@ const Sidebar = ({ filters, setFilters }) => {
           className="w-full p-1 border-b border-gray-300 text-sm outline-none"
         >
           <option value="">Any</option>
-          <option value="Apartment">Apartment</option>
-          <option value="House">House</option>
-          <option value="Condo">Condo</option>
-          <option value="Townhouse">Townhouse</option>
+          <option value="apartment">Apartment</option>
+          <option value="house">House</option>
         </select>
       </div>
 
